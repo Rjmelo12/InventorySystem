@@ -1,0 +1,26 @@
+const express = require('express');
+const mysql = require('mysql2');
+const app = express();
+
+// Database connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'db_project'
+});
+
+db.connect(err => {
+    if (err) throw err;
+    console.log('Database connected!');
+});
+
+// API routes
+app.get('/users', (req, res) => {
+    db.query('SELECT * FROM users', (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));

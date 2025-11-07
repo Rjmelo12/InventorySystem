@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+</head>
+
+
+<body>
+    <header>
+        <div class="header" id="header">
+            <h1 class="h1">Inventory System</h1>
+
+
+        </div>
+    </header>
+
+
+<aside>
+    <div class="nav" id="navside">
+        <ul>
+            <div class="side">
+                <li><a href="homepage.html">Home</a></li>
+            </div>
+            <div class="side">
+                <li><a href="products.html">Products</a></li>
+            </div>
+            <div class="side">
+                <li><a href="inventory.html">Inventory</a></li>
+            </div>
+            <div class="side">
+             <li><a href="customer.html">Customer</a></li>
+            </div>
+            <div class="side">
+                <li><a href="orders.html">Orders</a></li>
+               </div>
+            <div class="side">
+             <li><a href="logout.php">Log Out</a></li>
+            </div>
+        </ul>
+
+
+    </div>
+</aside>
+
+
+<div class="main"></div>
+    <div class="Con1" id="Con1">
+        <div class="con2">
+            <div class="con3">
+                <div class="name">
+                    <p class="p1">Customers ID</p>
+                    <p class="p1">Name</p>
+                    <p class="p1">Contact Information</p>
+                </div>    
+            </div>
+<div id="contentDiv">      
+    <div class="form" id="Form">
+        <form method="POST" action="add_customer.php" id="addCustomerForm"><br><br><br>
+            <input type="number" name="customer_id" placeholder="Enter Customer ID" id="Customer_id"><br><br>
+            <input type="text" name="name" placeholder="Enter Name" id="Name"><br><br>
+            <input type="text" name="contacts" placeholder="Enter Contact" id="Contacts"><br><br>
+            <div class="btn2">
+                <button type="submit" class="btn" style="background-color: rgb(103, 211, 103);">Add</button>
+                <button type="button" class="btn" id="clearCustomerForm" style="background-color: rgb(112, 112, 112);">Clear</button>
+            </div>
+        </form>
+    </div>
+    <div id="customerTable">
+        <h3>Customers</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="customerTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>    
+<script>
+    function loadCustomers() {
+        fetch('fetch_customers.php')
+            .then(response => response.json())
+            .then(customers => {
+                const tableBody = document.getElementById('customerTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                customers.forEach(customer => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${customer.customer_id}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.contacts}</td>
+                        <td>
+                            <button class="action-btn update-btn" data-id="${customer.customer_id}">Update</button>
+                            <button class="action-btn delete-btn" data-id="${customer.customer_id}">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(newRow);
+                });
+            })
+            .catch(error => console.error('Error fetching customers:', error));
+    }
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('add_customer.php', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert(result.message);
+                    loadCustomers(); // Reload the table
+                    this.reset(); 
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    // Initial load
+    loadCustomers();
+
+    document.getElementById('clearContent').addEventListener('click', function () {
+        document.getElementById('Customer_id').value = '';
+        document.getElementById('Name').value = '';
+        document.getElementById('contacts').value = '';
+    });
+</script>
+</html>
+</body>
+
+

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+
+<body>
+    <body>
+        <header>
+            <div class="header" id="header">
+                <h1 class="h1">Inventory System</h1>
+            </div>
+        </header>
+    
+        <aside>
+            <div class="nav" id="navside">
+                <ul>
+                    <div class="side"><li><a href="homepage.html">Home</a></li></div>
+                    <div class="side"><li><a href="Products.html">Products</a></li></div>
+                    <div class="side"><li><a href="Inventory.html">Inventory</a></li></div>
+                    <div class="side"><li><a href="Customer.html">Customer</a></li></div>
+                    <div class="side"><li><a href="Orders.html">Orders</a></li></div>
+                    <div class="side"><li><a href="logout.php">Log Out</a></li></div>
+                </ul>
+            </div>
+        </aside>
+    
+        <div class="main"></div>
+        <div class="Con1" id="Con1">
+            <div class="con2">
+                <div class="con3">
+                    <div class="name">
+                        <p class="p1">Order ID</p>
+                        <p class="p1">Customer ID</p>
+                        <p class="p1">Customer Name</p>
+                        <p class="p1">Product ID</p>
+                        <p class="p1">Product Name</p>
+                        <p class="p1">Quantity</p><br>
+                        <p class="p1">Price</p>
+                    </div>
+                </div>
+                <div class="con4">
+                    <form id="orderForm"><br>
+                        <input type="number" name="order_id" placeholder="Enter Order ID" id="order_id" required><br><br><br>
+                        <input type="number" name="customer_id" placeholder="Enter Customer ID" id="customer_id" required><br><br><br><br>
+                        <input type="text" name="customer_name" placeholder="Enter Customer Name" id="customer_name" required><br><br>
+                        <input type="number" name="product_id" placeholder="Enter Product ID" id="product_id" required><br><br><br>
+                        <input type="text" name="product_name" placeholder="Enter Product Name" id="product_name" required><br><br><br> 
+                        <input type="number" name="quantity" placeholder="Enter Quantity" id="quantity" required><br><br>
+                        <input type="number" name="price" placeholder="Enter Price" id="price" required><br><br>
+                        <div class="btn2">
+                            <button type="submit" class="btn" style="background-color: rgb(103, 211, 103);">Add</button>
+                            <button type="button" class="btn" id="clearContent" style="background-color: rgb(112, 112, 112);">Clear</button>
+                        </div>
+                    </form>
+                    <br><br>
+                        <div id="orderTable">
+                            <h3>Orders</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Product ID</th>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Dynamic rows will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        // Function to load orders
+        function loadOrders() {
+            fetch('fetch_orders.php')
+                .then(response => response.json())
+                .then(orders => {
+                    const tableBody = document.getElementById('ordersTableBody');
+                    tableBody.innerHTML = ''; // Clear existing rows
+                    orders.forEach(order => {
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>${order.order_id}</td>
+                            <td>${order.customer_id}</td>
+                            <td>${order.customer_name}</td>
+                            <td>${order.product_id}</td>
+                            <td>${order.product_name}</td>
+                            <td>${order.quantity}</td>
+                            <td>${order.price}</td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    });
+                })
+                .catch(error => console.error('Error fetching orders:', error));
+        }
+    
+        // Form submit event
+        document.getElementById('orderForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    fetch('add_order.php', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json()) // Parse response as JSON
+        .then(result => {
+            if (result.success) {
+                alert(result.message); // Notify success
+                loadOrders(); // Reload the orders table
+                this.reset(); // Clear the form
+            } else {
+                alert(result.message); // Notify error
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+    
+
+    
+        // Clear form fields
+        document.getElementById('clearContent').addEventListener('click', function () {
+            document.getElementById('orderForm').reset();
+        });
+    
+        // Initial load of orders
+        loadOrders();
+    </script>
+</html> 

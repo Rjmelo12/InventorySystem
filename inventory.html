@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+</head>
+
+
+<body>
+    <header>
+        <div class="header" id="header">
+            <h1 class="h1">Inventory System</h1>
+                <div class="search">
+
+
+        </div>
+    </header>
+
+
+<aside>
+    <div class="nav" id="navside">
+        <ul>
+            <div class="side">
+                <li><a href="homepage.html">Home</a></li>
+            </div>
+
+
+            <div class="side">
+                <li><a href="Products.html">Products</a></li>
+            </div>
+
+
+            <div class="side">
+                <li><a href="Inventory.html">Inventory</a></li>
+            </div>
+
+
+            <div class="side">
+                <li><a href="Customer.html">Customer</a></li>
+               </div>
+
+
+            <div class="side">
+             <li><a href="Orders.html">Orders</a></li>
+            </div>
+
+
+            <div class="side">
+             <li><a href="logout.php">Log Out</a></li>
+            </div>
+        </ul>
+
+
+    </div>
+
+
+    <div class="main"></div>
+    <div class="Con1" id="Con1">
+        <div class="con2">
+            <div class="con3">
+                <div class="name">
+
+
+                    <p class="p1">Inventory ID</p>
+                    <p class="p1">Product ID</p>
+                    <p class="p1">Product Name</p>
+                    <p class="p1">Category</p>
+                    <p class="p1">Price</p>
+                    <p class="p1">Stock</p>
+                </div>    
+            </div>
+            <div id="contentDiv">
+                <div class="con4">
+                    <div class="form" id="Form">
+                        <form method="POST" ><br>
+                            <input type="number" name="inventory_id" placeholder="Enter Inventory ID" id="inventory_id"><br><br><br><br>
+                            <input type="number" name="product_id" placeholder="Enter Product ID" id="product_id"><br><br><br>
+                            <input type="text" name="product_name" placeholder="Enter Product Name" id="product_name"><br><br>
+                            <input type="text" name="category" placeholder="Enter Category" id="category"><br><br>
+                            <input type="number" name="price" placeholder="Enter Price" id="price"><br>
+                            <input type="number" name="stock" placeholder="Enter Stock" id="stock"><br><br>
+                            <div class="btn2">
+                                <button type="submit" class="btn" style="background-color: rgb(103, 211, 103);">Add</button>
+                                <button type="button" class="btn" id="clearContent" style="background-color: rgb(112, 112, 112);">Clear</button>
+                            </div>
+                        </form>
+                </div>
+                <div id="inventoryTable">
+                    <h3>Inventory</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Inventory ID</th>
+                                            <th>Product ID</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inventoryTableBody">
+                                        <!-- Dynamic rows will be appended here -->
+                                    </tbody>
+                                </table>
+                </div>
+            </div>
+</div>
+    </div>
+</div>
+<script>
+    function loadInventory() {
+        fetch('fetch_inventory.php')
+            .then(response => response.json())
+            .then(inventory => {
+                const tableBody = document.getElementById('inventoryTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                inventory.forEach(item => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${item.inventory_id}</td>
+                        <td>${item.product_id}</td>
+                        <td>${item.product_name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.price}</td>
+                        <td>${item.stock}</td>
+                        <td>
+                            <button class="action-btn update-btn" data-id="${item.inventory_id}">Update</button>
+                            <button class="action-btn delete-btn" data-id="${item.inventory_id}">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(newRow);
+                });
+            })
+            .catch(error => console.error('Error fetching inventory:', error));
+    }
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('add_inventory.php', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert(result.message);
+                    loadInventory(); // Reload the table
+                    this.reset(); // Clear the form
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    // Initial load
+    loadInventory();
+
+    document.getElementById('clearContent').addEventListener('click', function () {
+        document.getElementById('inventory_id').value = '';
+        document.getElementById('product_id').value = '';
+        document.getElementById('product_name').value = '';
+        document.getElementById('category').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('stock').value = '';
+    });
+</script>
+</html>

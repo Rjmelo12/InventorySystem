@@ -1,0 +1,270 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+h1{padding: 25px;}
+
+
+a{color: white;}
+
+
+a:hover{ text-decoration: solid;
+color: black;}
+
+
+.header{
+text-align: center;
+background-color: rgb(2, 94, 2);
+color: white;
+height: 100px;
+max-width: 100%;
+
+}
+
+button{height: 30px;
+width: 50px;
+border-radius: 5px;
+margin-right: 20px;
+border: solid 1px;
+}
+
+
+button:hover{background-color: rgba(116, 9, 9, 0.808);
+    color: #ffffff;
+}
+
+
+ul{list-style: none;
+padding-top: 50px;}
+
+
+body{background-color: rgba(43, 90, 67, 0.205);}
+
+
+.side{
+    padding-top: 50px;
+    font-size: 18px;
+   
+}
+
+
+.nav{
+position: absolute;
+background-color: rgb(81, 159, 95);
+height:100%;
+width: 200px;
+padding: 20px;
+}  
+
+
+.main{ padding-top: 0px;}
+
+
+.Con1{
+    padding-top: 20px;
+    display: flex;
+    max-width: 700px;
+    margin: 0px 200px 100px;
+    height: 65vh;
+}
+.con2{
+    display: flex;
+   
+}
+
+
+.con3{display: grid;
+
+
+padding: 30px;}
+
+
+.name{color: white;}
+
+
+.con4{display: block    ;
+justify-content: right;
+padding: 30px;}
+
+
+.form{
+    padding-left: 100px;
+    padding-top: 10px;
+}
+
+
+input{padding-left: 20px;
+height: 35px;
+margin-bottom: 20px;
+border: none;
+width: 300px;
+border-bottom: 2px solid rgba(0, 0, 0, 0.753) ;
+background-color: rgba(168, 168, 168, 0);
+}
+
+
+.p1{
+    padding-bottom: 36px;
+    padding-top: 5px;
+    font-size: 25px;
+    color: black;
+}
+
+
+
+
+
+
+.btn2{
+    display: flex;
+    text-align: left;
+    margin-left: 225px;
+
+
+}
+
+
+.btn{width: 100px;
+padding-top: 4px;}
+
+
+
+
+
+
+.products-con1{
+
+/* margin: 20px 200px 0px ; */
+/* width: 400px;*/
+display: flex;
+justify-content: center;
+}
+
+
+.products-con2{ 
+/* margin: 60px; */
+display: flex; }
+
+
+
+
+.p2{
+padding: 20px;
+margin-top: 50px;
+margin-left: 2px;
+text-align: center;
+border-radius: 5px;
+width: 200px;
+height: 70px;
+font-size: 20px;
+cursor: pointer;
+}
+
+
+
+
+
+
+.Inventory-con1{
+    display: block;
+    margin-left: 150px;
+    justify-content: left;
+    padding-top: 100px;
+   
+}
+
+
+.inv-con2{ padding: 50px 20px;
+margin-right: 500px;}
+
+
+.table-con{
+    margin-left: 260px;
+}
+
+
+
+
+
+
+.p2 {
+    margin-bottom: 10px;
+    margin-top: 10px ;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.p2:hover {
+    opacity: 0.8;
+}
+.products-con1 {
+    margin-bottom: 20px;
+}
+.products-con2 {
+    display: flex;
+    gap: 20px;
+}
+.table-con {
+    margin-top: 20px;
+   
+}
+.table-header {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    text-align: center;
+    border: 1px solid rgb(14, 1, 1);
+}
+th, td {
+    text-align: center;
+    padding: 3px;
+}
+
+
+
+.action-btn {
+    text-align: center;
+    padding: 2px 2px;
+    margin: 1px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #e74c3c; /* Red */
+    color: #ffffff;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.update-btn {
+    background-color: #3498db; /* Blue */
+    color: #ffffff;
+}
+
+.update-btn:hover {
+    background-color: #2980b9;
+}
+
+.orchard{
+    text-align: center;
+}
+.Welcome{
+    display: flex;
+    margin-left: 10%;
+}

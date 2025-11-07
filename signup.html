@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register & Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <form method="post" action="process.php">
+</head>
+<body>
+    <div class="container" id="signup" style="display:none;">
+      <h1 class="form-title">Register</h1>
+      <form method="post" action="register.php">
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <label for="email">Email</label>
+        </div>
+        <input type="submit" class="btn" value="Sign In" name="signIn">
+    </form>
+      <p class="or">
+        ----------or--------
+      </p>
+    </div>
+
+    <div class="container" id="signIn">
+        <h1 class="form-title">Sign Up</h1>
+        <form method="post" action="signup.php">
+          <div class="input-group2">
+              <input type="number" name="user_id" id="User_ID" placeholder="User_ID" required ><br>
+              <label for="email">User ID</label><br><br>
+                <input type="name" name="fname" id="Fname" placeholder="Fname" required><br>
+                <label for="email">First Name</label><br><br>
+                <input type="name" name="lname" id="Lname" placeholder="Lname" required><br>
+                <label for="email">Last Name</label><br><br>
+                <input type="email" name="email" id="Email" placeholder="Email" required><br>
+                <label for="email">Email</label><br>
+                          </div>
+          <div class="input-group2">
+                
+              <input type="password" name="password" id="password" placeholder="Password" required>
+              <label for="password">Password</label>
+          </div>
+         <input type="submit" class="btn" value="Sign In" name="signIn">
+        </form>
+      </div>
+      <script src="script.js">
+
+        signUpButton.addEventListener('click',function(){
+            signInForm.style.display="none";
+            signUpForm.style.display="block";
+        })
+        signInButton.addEventListener('click', function(){
+            signInForm.style.display="block";
+            signUpForm.style.display="none";
+        })
+      </script>
+</body>
+</html>
